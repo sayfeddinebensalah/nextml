@@ -10,7 +10,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken'); // typo fixed: 'refereshToken' ➜ 'refreshToken'
+    localStorage.removeItem('refreshToken'); // Fixed typo 'refereshToken' ➜ 'refreshToken'
     setIsLoggedIn(false);
     navigate('/login');
   };
@@ -18,14 +18,13 @@ const Header = () => {
   return (
     <nav className="navbar container pt-3 pb-3 align-items-start">
       <Link className="navbar-brand" to="/">
-        <span className="brand-next">NEXT</span>
-        <span className="brand-ml">ML</span>
+        <span className="brand-next" style={{ fontFamily: 'monospace' }}>NEXT</span>
+        <span className="brand-ml" style={{ fontFamily: 'monospace' }}>ML</span>
       </Link>
       <div>
         {isLoggedIn ? (
           <>
-            <Button text="Dashboard" className="btn-info" url="/dashboard" />
-            {/* Fixed prop name 'class' ➜ 'className', and route from '/login' to '/dashboard' */}
+            <Button text="Model Hub" className="btn-info" url="/modelhub" />
             <button className="btn btn-danger" onClick={handleLogout}>
               Logout
             </button>

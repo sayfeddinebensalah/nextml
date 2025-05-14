@@ -2,11 +2,11 @@ import './assets/css/style.css';
 import Main from './components/Main';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from './components/Register';
-import Header from './components/header';
+import Header from './components/Header';
 import Footer from './components/footer';
 import Login from './components/Login';
 import AuthProvider from './AuthProvider';
-import Dashboard from './components/dashboard/Dashboard';
+import ModelHub from './components/ModelHub';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -20,7 +20,7 @@ function App() {
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute> } />
           {/* Change PrivateRoute to PublicRoute for login */}
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/modelhub" element={<PrivateRoute><ModelHub /></PrivateRoute>} />
         </Routes>
         <Footer />
       </BrowserRouter>

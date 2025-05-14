@@ -55,58 +55,76 @@ const Register = () => {
   };
 
   return (
-    <div className='container'>
-      <div className='row justify-content-center'>
-        <div className='col-md-6 bg-dark p-5 rounded'>
-          <h3 className='text-center mb-4 text-white'>Create an Account</h3>
-          <form onSubmit={handleRegistration}>
-            <div className='mb-3'>
-              <input
-                type="text"
-                name="username"
-                className='form-control mb-1'
-                placeholder='Enter username'
-                value={formData.username}
-                onChange={handleChange}
-              />
-              <small>{renderError('username')}</small>
-            </div>
+    <div className='container d-flex justify-content-center align-items-center min-vh-100'>
+      <div className='col-md-4 bg-dark text-light p-5 rounded shadow-lg'>
+        <h3 className='text-center mb-4 text-white'>Create an Account</h3>
+        <form onSubmit={handleRegistration}>
+          <div className='mb-4'>
+            <input
+              type="text"
+              name="username"
+              className='form-control p-3 rounded-pill border-0'
+              placeholder='Enter username'
+              value={formData.username}
+              onChange={handleChange}
+              style={{
+                backgroundColor: '#333',
+                color: '#fff',
+                borderRadius: '50px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              }}
+            />
+            <small>{renderError('username')}</small>
+          </div>
 
-            <div className='mb-3'>
-              <input
-                type="email"
-                name="email"
-                className='form-control mb-1'
-                placeholder='Enter email address'
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <small>{renderError('email')}</small>
-            </div>
+          <div className='mb-4'>
+            <input
+              type="email"
+              name="email"
+              className='form-control p-3 rounded-pill border-0'
+              placeholder='Enter email address'
+              value={formData.email}
+              onChange={handleChange}
+              style={{
+                backgroundColor: '#333',
+                color: '#fff',
+                borderRadius: '50px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              }}
+            />
+            <small>{renderError('email')}</small>
+          </div>
 
-            <div className='mb-3'>
-              <input
-                type="password"
-                name="password"
-                className='form-control mb-1'
-                placeholder='Set password'
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <small>{renderError('password')}</small>
-            </div>
+          <div className='mb-4'>
+            <input
+              type="password"
+              name="password"
+              className='form-control p-3 rounded-pill border-0'
+              placeholder='Set password'
+              value={formData.password}
+              onChange={handleChange}
+              style={{
+                backgroundColor: '#333',
+                color: '#fff',
+                borderRadius: '50px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              }}
+            />
+            <small>{renderError('password')}</small>
+          </div>
 
-            {success && <div className='alert alert-success'>Registration Successful</div>}
+          {success && <div className='alert alert-success'>Registration Successful</div>}
 
-            {loading ? (
-              <button type='submit' className='btn btn-info d-block mx-auto' disabled>
-                <FontAwesomeIcon icon={faSpinner} spin />
-              </button>
-            ) : (
-              <button type='submit' className='btn btn-info d-block mx-auto'>Register</button>
-            )}
-          </form>
-        </div>
+          {loading ? (
+            <button type='submit' className='btn btn-info d-block w-100 p-3 rounded-pill text-white' disabled>
+              <FontAwesomeIcon icon={faSpinner} spin />
+            </button>
+          ) : (
+            <button type='submit' className='btn btn-info d-block w-100 p-3 rounded-pill text-white'>
+              Register
+            </button>
+          )}
+        </form>
       </div>
     </div>
   );
