@@ -15,7 +15,7 @@ const Main = () => {
           border: '1px solid rgba(255, 255, 255, 0.2)' // Light border for subtle separation
         }}>
           <div className='text-center'>
-            <h1 className='text-light mb-4' style={{ fontSize: '2.5rem', fontWeight: '700' }}>Welcome to NEXTML</h1>
+            <h1 className='text-light mb-4' style={{ fontSize: '2.5rem', fontWeight: '700' }}>Welcome to NextML!</h1>
 
             {/* Pixel Art GIF (Transparent Robot Image) */}
             <img 

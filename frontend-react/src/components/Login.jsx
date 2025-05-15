@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -18,18 +18,13 @@ const Login = () => {
     setLoading(true);
     setError('');
 
-    const userData = { username, password };
-    console.log('userData =>', userData);
-
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', userData);
+      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', { username, password });
       localStorage.setItem('accessToken', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
-      console.log('Login successful');
       setIsLoggedIn(true);
-      navigate('/'); 
-    } catch (err) {
-      console.error('Login failed:', err);
+      navigate('/');
+    } catch {
       setError('Invalid username or password');
     } finally {
       setLoading(false);
@@ -37,63 +32,49 @@ const Login = () => {
   };
 
   return (
-    <div className='container d-flex justify-content-center align-items-center min-vh-100'>
-      <div className='col-md-4 bg-dark text-light p-5 rounded shadow-lg'>
-        <h3 className='text-center mb-4 text-white'>Welcome Back</h3>
+    <div className="container py-5 d-flex justify-content-center align-items-center min-vh-100">
+      <div className="col-md-4 p-4 bg-dark rounded shadow border border-secondary">
+        <h3 className="text-center text-white mb-4">Welcome Back</h3>
 
-        {error && (
-          <div className='alert alert-danger text-center p-2 mb-4'>
-            {error}
-          </div>
-        )}
+        {error && <div className="alert alert-danger text-center p-2 mb-4">{error}</div>}
 
         <form onSubmit={handleLogin}>
-          <div className='mb-4'>
+          <div className="mb-4">
+            <label htmlFor="username" className="form-label text-light">Username</label>
             <input
-              type='text'
-              name='username'
-              className='form-control p-3 rounded-pill border-0'
-              placeholder='Enter your username'
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              style={{
-                backgroundColor: '#333',
-                color: '#fff',
-                borderRadius: '50px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              }}
+              className="form-control bg-secondary text-light rounded shadow-sm border-0"
+              style={{ padding: '12px 20px' }}
             />
           </div>
 
-          <div className='mb-4'>
+          <div className="mb-4">
+            <label htmlFor="password" className="form-label text-light">Password</label>
             <input
-              type='password'
-              name='password'
-              className='form-control p-3 rounded-pill border-0'
-              placeholder='Enter your password'
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{
-                backgroundColor: '#333',
-                color: '#fff',
-                borderRadius: '50px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              }}
+              className="form-control bg-secondary text-light rounded shadow-sm border-0"
+              style={{ padding: '12px 20px' }}
             />
           </div>
 
           <button
-            type='submit'
-            className='btn btn-info d-block w-100 p-3 rounded-pill text-white'
+            type="submit"
             disabled={loading}
+            className="btn btn-info w-100 py-3 rounded"
           >
-            {loading ? (
-              <FontAwesomeIcon icon={faSpinner} spin />
-            ) : (
-              'Login'
-            )}
+            {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Login'}
           </button>
         </form>
       </div>

@@ -10,30 +10,28 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken'); // Fixed typo 'refereshToken' ➜ 'refreshToken'
+    localStorage.removeItem('refreshToken');
     setIsLoggedIn(false);
     navigate('/login');
   };
 
   return (
-    <nav className="navbar container pt-3 pb-3 align-items-start">
+    <nav className="navbar container pt-3 pb-3 d-flex justify-content-between align-items-center">
       <Link className="navbar-brand" to="/">
-        <span className="brand-next" style={{ fontFamily: 'monospace' }}>NEXT</span>
-        <span className="brand-ml" style={{ fontFamily: 'monospace' }}>ML</span>
+        <img src="/images/NEXTML.png" alt="NEXTML Logo" style={{ height: '150px' }} />
       </Link>
-      <div>
+      <div className="d-flex gap-3">
         {isLoggedIn ? (
           <>
-            <Button text="Model Hub" className="btn-info" url="/modelhub" />
-            <button className="btn btn-danger" onClick={handleLogout}>
+            <Button text="Model Hub" className="btn-info btn-lg" url="/modelhub" />
+            <button className="btn btn-danger btn-lg" onClick={handleLogout}>
               Logout
             </button>
           </>
         ) : (
           <>
-            <Button text="Login" className="btn-custom-outline" url="/login" />
-            &nbsp;
-            <Button text="Register" className="btn-info" url="/register" />
+            <Button text="Login" className="btn-custom-outline btn-lg" url="/login" />
+            <Button text="Register" className="btn-info btn-lg" url="/register" />
           </>
         )}
       </div>

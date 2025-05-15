@@ -68,3 +68,28 @@ body {
 .btn-info:hover {
     background-color: #0090c9;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand img {
+  height: 150px; /* Matches the inline style */
+  object-fit: contain; /* Prevents distortion */
+}
+
+.navbar .btn {
+  padding: 14px 28px; /* Larger padding for proportion with bigger logo */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 576px) {
+  .navbar-brand img {
+    height: 100px; /* Smaller logo on mobile */
+  }
+  .navbar .btn {
+    padding: 10px 20px; /* Smaller buttons on mobile */
+  }
+}

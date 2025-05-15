@@ -4,41 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: ''
-  });
-
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setSuccess(false); // Hide success message when editing
+    setSuccess(false);
   };
 
   const handleRegistration = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrors({});
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/register/', formData);
-      console.log('Registration successful:', response.data);
-      setErrors({});
+      await axios.post('http://127.0.0.1:8000/api/v1/register/', formData);
       setSuccess(true);
+      setFormData({ username: '', email: '', password: '' });
     } catch (error) {
-      const responseErrors = error.response?.data || {};
-      setErrors(responseErrors);
-
-      if (error.response) {
-        console.error('Registration error:', error.response.data);
-      } else if (error.request) {
-        console.error('No response received:', error.request);
-      } else {
-        console.error('Request setup error:', error.message);
-      }
+      setErrors(error.response?.data || {});
     } finally {
       setLoading(false);
     }
@@ -47,83 +33,72 @@ const Register = () => {
   const renderError = (field) => {
     const error = errors[field];
     if (!error) return null;
-    return (
-      <div className='text-danger'>
-        {Array.isArray(error) ? error[0] : error}
-      </div>
-    );
+    return <small className="text-danger d-block mb-2">{Array.isArray(error) ? error[0] : error}</small>;
   };
 
   return (
-    <div className='container d-flex justify-content-center align-items-center min-vh-100'>
-      <div className='col-md-4 bg-dark text-light p-5 rounded shadow-lg'>
-        <h3 className='text-center mb-4 text-white'>Create an Account</h3>
+    <div className="container py-5 d-flex justify-content-center align-items-center min-vh-100">
+      <div className="col-md-4 p-4 bg-dark rounded shadow border border-secondary">
+        <h3 className="text-center text-white mb-4">Create an Account</h3>
+
         <form onSubmit={handleRegistration}>
-          <div className='mb-4'>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label text-light">Username</label>
             <input
               type="text"
+              id="username"
               name="username"
-              className='form-control p-3 rounded-pill border-0'
-              placeholder='Enter username'
+              placeholder="Enter username"
               value={formData.username}
               onChange={handleChange}
-              style={{
-                backgroundColor: '#333',
-                color: '#fff',
-                borderRadius: '50px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              }}
+              className="form-control bg-secondary text-light rounded shadow-sm border-0"
+              required
+              style={{ padding: '12px 20px' }}
             />
-            <small>{renderError('username')}</small>
+            {renderError('username')}
           </div>
 
-          <div className='mb-4'>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label text-light">Email Address</label>
             <input
               type="email"
+              id="email"
               name="email"
-              className='form-control p-3 rounded-pill border-0'
-              placeholder='Enter email address'
+              placeholder="Enter email"
               value={formData.email}
               onChange={handleChange}
-              style={{
-                backgroundColor: '#333',
-                color: '#fff',
-                borderRadius: '50px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              }}
+              className="form-control bg-secondary text-light rounded shadow-sm border-0"
+              required
+              style={{ padding: '12px 20px' }}
             />
-            <small>{renderError('email')}</small>
+            {renderError('email')}
           </div>
 
-          <div className='mb-4'>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label text-light">Password</label>
             <input
               type="password"
+              id="password"
               name="password"
-              className='form-control p-3 rounded-pill border-0'
-              placeholder='Set password'
+              placeholder="Set password"
               value={formData.password}
               onChange={handleChange}
-              style={{
-                backgroundColor: '#333',
-                color: '#fff',
-                borderRadius: '50px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              }}
+              className="form-control bg-secondary text-light rounded shadow-sm border-0"
+              required
+              style={{ padding: '12px 20px' }}
             />
-            <small>{renderError('password')}</small>
+            {renderError('password')}
           </div>
 
-          {success && <div className='alert alert-success'>Registration Successful</div>}
+          {success && <div className="alert alert-success my-3">Registration Successful</div>}
 
-          {loading ? (
-            <button type='submit' className='btn btn-info d-block w-100 p-3 rounded-pill text-white' disabled>
-              <FontAwesomeIcon icon={faSpinner} spin />
-            </button>
-          ) : (
-            <button type='submit' className='btn btn-info d-block w-100 p-3 rounded-pill text-white'>
-              Register
-            </button>
-          )}
+          <button
+            type="submit"
+            className="btn btn-info w-100 py-3 rounded"
+            disabled={loading}
+          >
+            {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Register'}
+          </button>
         </form>
       </div>
     </div>
