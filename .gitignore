@@ -134,7 +134,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env310/
+backend-drf/env310/
 venv/
 ENV/
 env.bak/
@@ -187,3 +187,4 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/django,react
+
